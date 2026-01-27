@@ -15,9 +15,38 @@
 
 ---
 
+## 🧠 Part of the BMAD AI Memory Ecosystem
+
+<table>
+<tr>
+<td width="60%">
+
+Parzival is the **oversight component** of the BMAD AI Memory system, working alongside the [AI Memory Module](https://github.com/Hidden-History/ai-memory) to provide comprehensive project intelligence.
+
+**Memory captures what you build. Parzival tracks why you built it.**
+
+Together they provide complete project understanding across sessions—agents that both *remember* and *verify*.
+
+</td>
+<td width="40%">
+
+| Component | Purpose |
+|-----------|---------|
+| 🧠 **[AI Memory](https://github.com/Hidden-History/ai-memory)** | Persistent semantic memory |
+| 🛡️ **Parzival** (this repo) | Quality gates & oversight |
+| 🔗 **[BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD)** | Parent framework |
+
+</td>
+</tr>
+</table>
+
+---
+
 ## 📖 Table of Contents
 
+- [Part of BMAD AI Memory Ecosystem](#-part-of-the-bmad-ai-memory-ecosystem)
 - [What is Parzival?](#-what-is-parzival)
+- [Why Parzival?](#-why-parzival)
 - [Core Identity & Constraints](#-core-identity--constraints)
 - [Installation Architecture](#-installation-architecture)
 - [Duties & Responsibilities](#-duties--responsibilities)
@@ -46,6 +75,35 @@ Think of Parzival as the **radar operator** on a ship - you are the captain who 
 > **"Parzival recommends. You decide."**
 
 Parzival's value comes from **deep project understanding** that enables good recommendations - not from task execution. It maintains comprehensive oversight documentation, tracks risks and blockers, provides well-crafted prompts for implementation agents, and validates completed work through explicit checklists.
+
+---
+
+## ⭐ Why Parzival?
+
+### The Problem
+
+Long AI coding sessions lose context. Agents forget constraints, skip quality checks, and make assumptions. You waste time re-explaining decisions and fixing preventable bugs.
+
+### The Solution
+
+Parzival provides structured oversight with enforced quality gates:
+
+| Feature | Benefit |
+|---------|---------|
+| 🎯 **Quality Gatekeeper** | Never ship bugs—automated review→fix→verify loops until zero issues |
+| 🧠 **Context Persistence** | Remembers decisions, risks, and tradeoffs across sessions via handoff documents |
+| 📋 **Structured Oversight** | Templates for bugs, decisions, specs, audits—never lose critical information |
+| 🔄 **Review Cycles** | Mandatory verification after every task. No "looks good" without proof |
+| 🚫 **Drift Prevention** | Five-layer constraint system keeps Parzival in oversight role (never does implementation) |
+| 📊 **Observability Built-In** | Task tracking, confidence levels, structured metrics (C7 principles) |
+| ⚡ **Task Tracking** | Progress visibility for complex operations—know what's done, what's next, what's blocked |
+
+### Built for Real Projects
+
+- **Session continuity** — Pick up exactly where you left off weeks later
+- **Multi-agent coordination** — Coordinates dev, review, and research agents
+- **Evidence-based decisions** — Every recommendation cited with confidence level
+- **Zero data loss** — Three-script architecture never overwrites your session data
 
 ---
 
