@@ -230,7 +230,9 @@ Parzival performs a **mental self-check every ~10 messages** to prevent behavior
 IF ANY CHECK FAILS → Course-correct IMMEDIATELY
 ```
 
-For complete constraint documentation, see [`.claude/skills/parzival-oversight/CONSTRAINTS.md`](./.claude/skills/parzival-oversight/CONSTRAINTS.md)
+For complete constraint documentation, see [`claude-skills/parzival-oversight/CONSTRAINTS.md`](./claude-skills/parzival-oversight/CONSTRAINTS.md) (module source) or `.claude/skills/parzival-oversight/CONSTRAINTS.md` after installation.
+
+> **Two Constraint Systems:** Parzival uses (1) **5 Behavioral Constraints** above that define the oversight role, and (2) **7 Operational Constraints (C1-C7)** in `_bmad/pov/agents/parzival/CONSTRAINTS.md` that define work procedures (bug tracking, verification, observability)
 
 ---
 
@@ -496,13 +498,14 @@ Parzival will greet you and show a menu of available commands.
 | `/parzival-decision` | Decision support | Need to choose between options |
 | `/parzival-verify` | Run verification checklist | After completing implementation |
 
-### Quality Gates (Subagents)
+### Quality Gates (2 Subagents)
 
 | Command | Description | When to Use |
 |---------|-------------|-------------|
 | `/code-review` | Invoke Code Reviewer | After implementation, before approval |
 | `/verify-implementation` | Verify against acceptance criteria | After code review passes |
-| `/best-practices-research` | Research current best practices | When uncertain about patterns/approaches |
+
+> **Note:** For best practices research, use the `/bmad:pov:agents:best-practices-researcher` skill from the [AI Memory Module](https://github.com/Hidden-History/ai-memory) which includes database integration.
 
 ### General
 
@@ -510,6 +513,26 @@ Parzival will greet you and show a menu of available commands.
 |---------|-------------|
 | `/parzival-chat` | Chat with Parzival | General questions, brainstorming |
 | `/parzival-help` | Show menu | Redisplay all commands |
+
+### Usage Examples
+
+**Starting a Session:**
+```
+/parzival-start
+```
+*Expected:* Parzival loads context from `SESSION_WORK_INDEX.md` and presents current task status, active blockers, and session summary.
+
+**Analyzing a Blocker:**
+```
+/parzival-blocker
+```
+*Expected:* Parzival asks for blocker details, analyzes the issue, and presents resolution options with tradeoffs and confidence levels.
+
+**Creating a Handoff:**
+```
+/parzival-closeout
+```
+*Expected:* Parzival creates a detailed `SESSION_HANDOFF_*.md` file with work completed, decisions made, next steps, and context for future sessions.
 
 ---
 
@@ -613,11 +636,10 @@ bmad-parzival-module/
 │   │   │   ├── parzival-blocker.md
 │   │   │   ├── parzival-decision.md
 │   │   │   └── parzival-verify.md
-│   │   └── agents/                    # 4 agent invocations
-│   │       ├── code-reviewer.md
-│   │       ├── verify-implementation.md
-│   │       ├── best-practices-researcher.md
-│   │       └── parzival.md
+│   │   └── agents/                    # 3 agent invocations
+│   │       ├── parzival.md            # Main agent activation
+│   │       ├── code-reviewer.md       # Code review subagent
+│   │       └── verify-implementation.md # Verification subagent
 │   │
 │   └── skills/parzival-oversight/     # Skill definitions
 │       ├── SKILL.md                   # Main skill definition
@@ -707,8 +729,10 @@ your-project/oversight/
 | Document | Purpose | Audience |
 |----------|---------|----------|
 | **[docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md](./docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md)** | Five-layer behavioral design architecture | Module developers |
-| **[.claude/skills/parzival-oversight/CONSTRAINTS.md](./.claude/skills/parzival-oversight/CONSTRAINTS.md)** | Complete behavioral rules (390 lines) | Parzival itself |
-| **[.claude/skills/parzival-oversight/PROCEDURES.md](./.claude/skills/parzival-oversight/PROCEDURES.md)** | Step-by-step operational procedures | Parzival itself |
+| **[docs/SHARDING_STRATEGY.md](./docs/SHARDING_STRATEGY.md)** | Document sharding for long-term projects | Module developers |
+| **[claude-skills/parzival-oversight/CONSTRAINTS.md](./claude-skills/parzival-oversight/CONSTRAINTS.md)** | 5 Behavioral constraints (390 lines) | Parzival itself |
+| **[claude-skills/parzival-oversight/PROCEDURES.md](./claude-skills/parzival-oversight/PROCEDURES.md)** | Step-by-step operational procedures | Parzival itself |
+| **[_bmad/pov/agents/parzival/CONSTRAINTS.md](./_bmad/pov/agents/parzival/CONSTRAINTS.md)** | 7 Operational constraints (C1-C7) | Parzival itself |
 | **[_bmad/pov/agents/parzival.md](./_bmad/pov/agents/parzival.md)** | Agent definition with activation sequence | BMAD system |
 
 ### Command Documentation
@@ -797,6 +821,18 @@ When modifying Parzival's behavior, update ALL layers:
 
 ---
 
+## 📦 Repository Information
+
+| Identifier | Value |
+|------------|-------|
+| **Public Repository** | [github.com/Hidden-History/pov-oversight-agent](https://github.com/Hidden-History/pov-oversight-agent) |
+| **Module ID** | `bmad-parzival-module` (for BMAD installation) |
+| **Companion Module** | [AI Memory Module](https://github.com/Hidden-History/ai-memory) |
+
+> The module directory is named `bmad-parzival-module` for BMAD compatibility, while the public repository is named `pov-oversight-agent` for clarity.
+
+---
+
 ## 📄 License
 
 MIT License - See BMAD Method for full license terms.
@@ -815,6 +851,6 @@ Parzival is built on:
 
 **Built with ❤️ for developers who value context persistence and quality gates**
 
-[Report Bug](https://github.com/your-repo/bmad-parzival-module/issues) • [Request Feature](https://github.com/your-repo/bmad-parzival-module/issues) • [View Changelog](#-version--compatibility)
+[Report Bug](https://github.com/Hidden-History/pov-oversight-agent/issues) • [Request Feature](https://github.com/Hidden-History/pov-oversight-agent/issues) • [View Changelog](#-version--compatibility)
 
 </div>

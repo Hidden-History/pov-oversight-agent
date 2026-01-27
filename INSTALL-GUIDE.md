@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/your-repo/bmad-parzival-module)
+[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://github.com/Hidden-History/pov-oversight-agent)
 [![BMAD Compatible](https://img.shields.io/badge/BMAD-6.0.0--alpha.22+-green.svg)](https://bmad-method.org)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -96,7 +96,8 @@ Parzival operates under **five non-negotiable rules** that prevent behavioral dr
 ### 🤖 Agent Coordination
 - **Code Review**: Adversarial review finding 3-10 issues minimum
 - **Implementation Verification**: Evidence-based acceptance criteria validation
-- **Best Practices Research**: Current (2024-2026) patterns and standards
+
+> **Best Practices Research**: For database-backed best practices research, use the `/bmad:pov:agents:best-practices-researcher` skill from the [AI Memory Module](https://github.com/Hidden-History/ai-memory).
 
 ### 🔒 Data Safety
 - **Separation of Concerns**: Code updates never touch user data
