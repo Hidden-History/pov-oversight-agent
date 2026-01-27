@@ -1,0 +1,71 @@
+# POV Module Configuration
+# Parzival Oversight Module
+# Version: 1.1.0
+
+# =====================================================
+# CONFIGURE THESE VALUES FOR YOUR PROJECT
+# =====================================================
+
+# Your project name (no spaces, use dashes)
+project_name: my-project
+
+# Your name (used in handoffs and documentation)
+user_name: Your Name
+
+# Language for Parzival's communication
+communication_language: English
+
+# Language for generated documents
+document_output_language: English
+
+# Output folder for generated artifacts
+output_folder: "{project-root}/_bmad-output"
+
+# =====================================================
+# PARZIVAL-SPECIFIC SETTINGS (usually no changes needed)
+# =====================================================
+
+parzival:
+  # Where oversight documents are stored
+  oversight_folder: "{project-root}/oversight"
+
+  # How many session handoffs to keep in the index
+  handoff_retention: 10
+
+  # Confidence levels for recommendations
+  # (from most to least certain)
+  confidence_levels:
+    - Verified      # Directly confirmed from source
+    - Informed      # Based on reliable information
+    - Inferred      # Logical deduction from available data
+    - Uncertain     # Limited information available
+    - Unknown       # No basis for assessment
+
+  # Priority levels for issues and decisions
+  escalation_levels:
+    - Critical      # Blocks all progress
+    - High          # Significant impact
+    - Medium        # Moderate impact
+    - Low           # Minor impact
+
+  # Best practices knowledge base settings
+  best_practices:
+    # Where researched best practices are stored
+    storage_path: "{oversight_folder}/knowledge/best-practices"
+
+    # How many months before a finding is considered stale
+    staleness_months: 6
+
+    # Automatically link new findings to decisions log
+    auto_link_decisions: true
+
+    # Automatically update confidence map when topics are researched
+    auto_link_confidence_map: true
+
+  # Standards sharding settings
+  standards:
+    # Where project standards are stored
+    storage_path: "{oversight_folder}/standards"
+
+    # Load only relevant standards per task (token efficiency)
+    selective_loading: true

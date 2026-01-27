@@ -1,0 +1,67 @@
+# Agent Customization
+# Customize any section below - all are optional
+
+# Override agent name
+agent:
+  metadata:
+    name: ""
+
+# Replace entire persona (not merged)
+persona:
+  role: ""
+  identity: ""
+  communication_style: ""
+  principles: []
+
+# Add custom critical actions (appended after standard config loading)
+critical_actions: []
+
+# Add persistent memories for the agent
+memories: []
+# Example:
+# memories:
+#   - "User prefers detailed technical explanations"
+#   - "Current project uses React and TypeScript"
+#   - "Always check project-context.md before making recommendations"
+
+# Add custom menu items (appended to base menu)
+# Don't include * prefix or help/exit - auto-injected
+menu: []
+# Example:
+# menu:
+#   - trigger: custom-verify
+#     exec: "{project-root}/custom/verify-workflow.md"
+#     description: Custom verification workflow
+#   - trigger: sprint-plan
+#     workflow: "{project-root}/custom/sprint-planning.yaml"
+#     description: Run sprint planning
+
+# Add custom prompts (for action="#id" handlers)
+prompts: []
+# Example:
+# prompts:
+# - id: custom-analysis
+#   content: |
+#     Perform a custom analysis following these steps:
+#     1. Review the current state
+#     2. Identify issues
+#     3. Present recommendations
+
+# Parzival-specific customizations
+# Override oversight folder location
+# oversight_folder: "{project-root}/custom-oversight"
+
+# Override confidence levels
+# confidence_levels:
+#   - Certain
+#   - Likely
+#   - Possible
+#   - Uncertain
+#   - Unknown
+
+# Override escalation levels
+# escalation_levels:
+#   - Blocker
+#   - Urgent
+#   - Normal
+#   - Low
