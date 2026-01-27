@@ -1,13 +1,18 @@
-# 🎯 Parzival: Technical PM & Quality Gatekeeper for Claude Code
-
 <div align="center">
 
-[![BMAD Method](https://img.shields.io/badge/BMAD-Module-blue)](https://github.com/bmad-method/bmad-method)
-[![Version](https://img.shields.io/badge/version-1.1.0-green)](https://github.com/your-repo/bmad-parzival-module)
-[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple)](https://claude.ai/code)
+<img src="assets/parzival_oversight_agent.png" alt="Parzival Oversight Agent Banner" width="100%">
 
-**Your AI Oversight Agent for Context Persistence, Risk Tracking, and Quality Gates**
+# 🛡️ Parzival Oversight Agent
+
+**Technical PM & Quality Gatekeeper for Claude Code**
+
+[![BMAD Method](https://img.shields.io/badge/BMAD-Module-blue)](https://github.com/bmad-code-org/BMAD-METHOD)
+[![AI Memory](https://img.shields.io/badge/AI%20Memory-Ecosystem-purple)](https://github.com/Hidden-History/ai-memory)
+[![Version](https://img.shields.io/badge/version-1.1.0-green)](https://github.com/Hidden-History/pov-oversight-agent)
+[![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-brightgreen)](https://claude.ai/code)
+
+**Parzival is the radar operator, not the pilot. It monitors, navigates, verifies, and documents—but never executes. Your AI oversight agent for context persistence, risk tracking, and enforced quality gates.**
 
 [Quick Start](#-quick-start) • [Installation](#-installation) • [Commands](#-commands) • [Architecture](#-architecture) • [Documentation](#-documentation)
 
