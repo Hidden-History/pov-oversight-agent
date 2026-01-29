@@ -16,21 +16,21 @@ Parzival is advisory only - it provides analysis, recommendations, and prompts b
 
 | Command | Description |
 |---------|-------------|
-| `/bmad:pov:commands:parzival-start` | Begin session - load context |
-| `/bmad:pov:commands:parzival-status` | Quick status check |
-| `/bmad:pov:commands:parzival-closeout` | End session with handoff |
-| `/bmad:pov:commands:parzival-handoff` | Mid-session snapshot |
-| `/bmad:pov:commands:parzival-blocker` | Analyze a blocker |
-| `/bmad:pov:commands:parzival-decision` | Decision support |
-| `/bmad:pov:commands:parzival-verify` | Run verification checklist |
+| `/pov:commands:parzival-start` | Begin session - load context |
+| `/pov:commands:parzival-status` | Quick status check |
+| `/pov:commands:parzival-closeout` | End session with handoff |
+| `/pov:commands:parzival-handoff` | Mid-session snapshot |
+| `/pov:commands:parzival-blocker` | Analyze a blocker |
+| `/pov:commands:parzival-decision` | Decision support |
+| `/pov:commands:parzival-verify` | Run verification checklist |
 
 ### Subagents
 
 | Agent | Description |
 |-------|-------------|
-| `/bmad:pov:agents:code-reviewer` | Expert code review with severity ranking |
-| `/bmad:pov:agents:best-practices-researcher` | Research current patterns with sources |
-| `/bmad:pov:agents:verify-implementation` | Verify work against acceptance criteria |
+| `/pov:agents:code-reviewer` | Expert code review with severity ranking |
+| `/pov:agents:best-practices-researcher` | Research current patterns with sources |
+| `/pov:agents:verify-implementation` | Verify work against acceptance criteria |
 
 ### Confidence Levels
 

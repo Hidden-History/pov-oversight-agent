@@ -68,7 +68,7 @@ Parzival operates under **five non-negotiable rules** that prevent behavioral dr
 **Why This Matters:** Over long conversations, AI agents "forget" their core role and start doing implementation work, skipping reviews, and guessing. Parzival uses a **five-layer constraint enforcement system** to maintain consistent oversight behavior even in 50+ message conversations.
 
 📚 **Learn More:**
-- [CONSTRAINTS.md](./claude-skills/parzival-oversight/CONSTRAINTS.md) - Complete behavioral rules (390 lines)
+- [CONSTRAINTS.md](./pov/agents/parzival/CONSTRAINTS.md) - Complete behavioral rules (394 lines)
 - [CONSTRAINT-ENFORCEMENT-SYSTEM.md](./docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md) - Behavioral architecture
 - [README.md](./README.md) - Source of truth document
 
@@ -252,7 +252,7 @@ cd /path/to/bmad-parzival-module
 ```
 
 **What this does:**
-- ✅ Copies module files to `_bmad/pov/`
+- ✅ Copies module files to `pov/`
 - ✅ Installs slash commands to `.claude/commands/`
 - ✅ Installs skills to `.claude/skills/`
 - ✅ Updates BMAD manifests
@@ -311,7 +311,7 @@ Edit the configuration file with your preferences:
 
 ```bash
 # Open config file
-nano _bmad/pov/config.yaml
+nano pov/config.yaml
 
 # Update these values:
 project_name: my-awesome-project
@@ -412,10 +412,10 @@ Choice [d/k/u/s]: u
 
 | Component | Update Method | Your Data Safe? |
 |-----------|---------------|-----------------|
-| Module code (`_bmad/pov/`) | Overwritten | N/A (no user data) |
+| Module code (`pov/`) | Overwritten | N/A (no user data) |
 | Commands (`.claude/commands/`) | Overwritten | N/A (no user data) |
 | Skills (`.claude/skills/`) | Overwritten | N/A (no user data) |
-| Config (`_bmad/pov/config.yaml`) | Overwritten | ⚠️ Backup first |
+| Config (`pov/config.yaml`) | Overwritten | ⚠️ Backup first |
 | Oversight data (`oversight/`) | **NEVER touched by install.sh** | ✅ Always safe |
 | Templates (via `update-templates.sh`) | Interactive - you choose | ✅ You control |
 
@@ -425,7 +425,7 @@ Before updating, backup these files if you've customized them:
 
 ```bash
 # Backup your config
-cp _bmad/pov/config.yaml _bmad/pov/config.yaml.backup
+cp pov/config.yaml pov/config.yaml.backup
 
 # Backup any custom templates (if you've modified them)
 cp oversight/README.md oversight/README.md.backup
@@ -596,7 +596,7 @@ my-project/
 │
 ├── .claude/                        # Claude Code integration
 │   ├── commands/
-│   │   └── bmad/pov/
+│   │   └── pov/
 │   │       ├── commands/           # 7 slash commands
 │   │       │   ├── parzival-start.md
 │   │       │   ├── parzival-status.md
@@ -676,7 +676,7 @@ my-project/
 
 | Directory | Purpose | Updated By |
 |-----------|---------|-----------|
-| `_bmad/pov/` | Module code | `install.sh` |
+| `pov/` | Module code | `install.sh` |
 | `.claude/commands/` | Slash commands | `install.sh` |
 | `.claude/skills/` | Skills | `install.sh` |
 | `oversight/` | **Your session data** | **You + Parzival** |
@@ -691,7 +691,7 @@ my-project/
 
 ### Basic Configuration
 
-Edit `_bmad/pov/config.yaml`:
+Edit `pov/config.yaml`:
 
 ```yaml
 # Project settings
@@ -760,7 +760,7 @@ principles:
 **Fix:**
 ```bash
 # Verify commands exist
-ls .claude/commands/bmad/pov/commands/
+ls .claude/commands/pov/commands/
 
 # If missing, re-run installer
 ./install.sh /path/to/your/project
@@ -785,7 +785,7 @@ ls oversight/
 ./scripts/init-oversight.sh /path/to/your/project
 
 # If exists but empty
-cp -r _bmad/pov/templates/oversight/* oversight/
+cp -r pov/templates/oversight/* oversight/
 ```
 </details>
 
@@ -850,11 +850,11 @@ chmod +x scripts/update-templates.sh
 mkdir -p oversight/knowledge/best-practices/
 
 # Copy the template
-cp _bmad/pov/templates/oversight/knowledge/best-practices/_TEMPLATE.md \
+cp pov/templates/oversight/knowledge/best-practices/_TEMPLATE.md \
    oversight/knowledge/best-practices/
 
 # Copy the index
-cp _bmad/pov/templates/oversight/knowledge/best-practices/index.md \
+cp pov/templates/oversight/knowledge/best-practices/index.md \
    oversight/knowledge/best-practices/
 ```
 </details>
@@ -870,7 +870,7 @@ cp _bmad/pov/templates/oversight/knowledge/best-practices/index.md \
 cat _bmad/_config/agent-manifest.csv | grep parzival
 
 # If missing, add this line to agent-manifest.csv:
-"parzival","Parzival","Technical PM & Quality Gatekeeper","🎯","Technical Project Manager + Quality Gatekeeper","Parzival is the radar, map reader, and navigator. Deep project understanding enables good recommendations - not task execution. Maintains oversight documentation, tracks risks and blockers, provides well-crafted prompts for agents, and validates completed work through explicit checklists.","Advisory and supportive. Uses confidence levels (Verified/Informed/Inferred/Uncertain/Unknown) with every recommendation. Asks clarifying questions rather than assuming. Surfaces risks and scope changes proactively.","- Parzival recommends. The user decides. - Ask when uncertain, never fabricate. - Surface scope changes when detected. - Write for Future Parzival who knows nothing about this session. - Verification is concrete, not vibes-based.","pov","_bmad/pov/agents/parzival.md"
+"parzival","Parzival","Technical PM & Quality Gatekeeper","🎯","Technical Project Manager + Quality Gatekeeper","Parzival is the radar, map reader, and navigator. Deep project understanding enables good recommendations - not task execution. Maintains oversight documentation, tracks risks and blockers, provides well-crafted prompts for agents, and validates completed work through explicit checklists.","Advisory and supportive. Uses confidence levels (Verified/Informed/Inferred/Uncertain/Unknown) with every recommendation. Asks clarifying questions rather than assuming. Surfaces risks and scope changes proactively.","- Parzival recommends. The user decides. - Ask when uncertain, never fabricate. - Surface scope changes when detected. - Write for Future Parzival who knows nothing about this session. - Verification is concrete, not vibes-based.","pov","pov/agents/parzival.md"
 ```
 </details>
 
@@ -946,9 +946,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Official Documentation
 - **[README.md](./README.md)** - Complete source of truth (identity, constraints, duties, architecture)
-- **[CONSTRAINTS.md](./claude-skills/parzival-oversight/CONSTRAINTS.md)** - Core behavioral rules (390 lines)
+- **[CONSTRAINTS.md](./pov/agents/parzival/CONSTRAINTS.md)** - Core behavioral rules (394 lines)
 - **[CONSTRAINT-ENFORCEMENT-SYSTEM.md](./docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md)** - Five-layer behavioral architecture
-- **[PROCEDURES.md](./claude-skills/parzival-oversight/PROCEDURES.md)** - Step-by-step operational procedures
+- **[PROCEDURES.md](./pov/procedures/PROCEDURES.md)** - Step-by-step operational procedures (878 lines)
 
 ### External Resources
 - [BMAD Method Documentation](https://bmad-method.org/docs)

@@ -218,7 +218,7 @@ IF ANY CHECK FAILS → Course-correct IMMEDIATELY
 
 ## 📁 File Structure
 
-### 1. `/claude-skills/parzival-oversight/CONSTRAINTS.md`
+### 1. `/pov/agents/parzival/CONSTRAINTS.md`
 **Purpose**: Comprehensive constraint documentation
 **When Loaded**: Session start
 **Contains**:
@@ -228,7 +228,7 @@ IF ANY CHECK FAILS → Course-correct IMMEDIATELY
 - Self-check schedule
 - Enforcement protocols
 
-### 2. `/_bmad/pov/agents/parzival.md`
+### 2. `/pov/agents/parzival.md`
 **Purpose**: Agent definition with critical constraints
 **When Loaded**: Agent activation
 **Contains**:
@@ -237,7 +237,7 @@ IF ANY CHECK FAILS → Course-correct IMMEDIATELY
 - Self-check checklist
 - Additional rules section
 
-### 3. `/claude-skills/parzival-oversight/PROCEDURES.md`
+### 3. `/pov/procedures/PROCEDURES.md`
 **Purpose**: Step-by-step operational procedures
 **When Loaded**: As needed during operations
 **Contains**:
@@ -477,9 +477,9 @@ After activating Parzival, test with:
 
 ## 📚 References
 
-- `claude-skills/parzival-oversight/CONSTRAINTS.md` - Full constraints
-- `_bmad/pov/agents/parzival.md` - Agent definition with critical constraints
-- `claude-skills/parzival-oversight/PROCEDURES.md` - Operational procedures
+- `pov/agents/parzival/CONSTRAINTS.md` - Full constraints
+- `pov/agents/parzival.md` - Agent definition with critical constraints
+- `pov/procedures/PROCEDURES.md` - Operational procedures
 - This document - System architecture and enforcement
 
 ---

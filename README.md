@@ -230,9 +230,9 @@ Parzival performs a **mental self-check every ~10 messages** to prevent behavior
 IF ANY CHECK FAILS → Course-correct IMMEDIATELY
 ```
 
-For complete constraint documentation, see [`claude-skills/parzival-oversight/CONSTRAINTS.md`](./claude-skills/parzival-oversight/CONSTRAINTS.md) (module source) or `.claude/skills/parzival-oversight/CONSTRAINTS.md` after installation.
+For complete constraint documentation, see [`pov/agents/parzival/CONSTRAINTS.md`](./pov/agents/parzival/CONSTRAINTS.md).
 
-> **Two Constraint Systems:** Parzival uses (1) **5 Behavioral Constraints** above that define the oversight role, and (2) **7 Operational Constraints (C1-C7)** in `_bmad/pov/agents/parzival/CONSTRAINTS.md` that define work procedures (bug tracking, verification, observability)
+> **Two Constraint Systems:** Parzival uses (1) **5 Behavioral Constraints** above that define the oversight role, and (2) **7 Operational Constraints (C1-C7)** in `pov/agents/parzival/CONSTRAINTS.md` that define work procedures (bug tracking, verification, observability)
 
 ---
 
@@ -456,7 +456,7 @@ chmod +x install.sh
 **Skip this step if you already have an oversight/ folder!**
 
 #### 3. Configure (Optional)
-Edit `your-project/_bmad/pov/config.yaml`:
+Edit `your-project/pov/config.yaml`:
 ```yaml
 user_name: "YourName"
 communication_language: "English"
@@ -472,7 +472,7 @@ claude
 
 Then activate Parzival:
 ```
-/parzival-start
+/pov:agents:parzival
 ```
 
 Parzival will greet you and show a menu of available commands.
@@ -481,56 +481,57 @@ Parzival will greet you and show a menu of available commands.
 
 ## 📋 Commands
 
+All commands use the `/pov:commands:` or `/pov:agents:` prefix.
+
 ### Session Management
 
 | Command | Description | When to Use |
 |---------|-------------|-------------|
-| `/parzival-start` | Start session - load context | Beginning of work session |
-| `/parzival-status` | Quick status check | Check current state without full context load |
-| `/parzival-closeout` | End session - create handoff | End of work session, before break |
-| `/parzival-handoff` | Mid-session snapshot | After completing significant work |
+| `/pov:commands:parzival-start` | Start session - load context | Beginning of work session |
+| `/pov:commands:parzival-status` | Quick status check | Check current state without full context load |
+| `/pov:commands:parzival-closeout` | End session - create handoff | End of work session, before break |
+| `/pov:commands:parzival-handoff` | Mid-session snapshot | After completing significant work |
 
 ### Problem Solving
 
 | Command | Description | When to Use |
 |---------|-------------|-------------|
-| `/parzival-blocker` | Analyze blocker | When stuck on a problem |
-| `/parzival-decision` | Decision support | Need to choose between options |
-| `/parzival-verify` | Run verification checklist | After completing implementation |
+| `/pov:commands:parzival-blocker` | Analyze blocker | When stuck on a problem |
+| `/pov:commands:parzival-decision` | Decision support | Need to choose between options |
+| `/pov:commands:parzival-verify` | Run verification checklist | After completing implementation |
 
 ### Quality Gates (2 Subagents)
 
 | Command | Description | When to Use |
 |---------|-------------|-------------|
-| `/code-review` | Invoke Code Reviewer | After implementation, before approval |
-| `/verify-implementation` | Verify against acceptance criteria | After code review passes |
+| `/pov:agents:code-reviewer` | Invoke Code Reviewer | After implementation, before approval |
+| `/pov:agents:verify-implementation` | Verify against acceptance criteria | After code review passes |
 
-> **Note:** For best practices research, use the `/bmad:pov:agents:best-practices-researcher` skill from the [AI Memory Module](https://github.com/Hidden-History/ai-memory) which includes database integration.
+> **Note:** For best practices research, use the `best-practices-researcher` skill from the [AI Memory Module](https://github.com/Hidden-History/ai-memory) which includes database integration.
 
 ### General
 
 | Command | Description |
 |---------|-------------|
-| `/parzival-chat` | Chat with Parzival | General questions, brainstorming |
-| `/parzival-help` | Show menu | Redisplay all commands |
+| `/pov:agents:parzival` | Activate Parzival agent with full menu |
 
 ### Usage Examples
 
 **Starting a Session:**
 ```
-/parzival-start
+/pov:commands:parzival-start
 ```
 *Expected:* Parzival loads context from `SESSION_WORK_INDEX.md` and presents current task status, active blockers, and session summary.
 
 **Analyzing a Blocker:**
 ```
-/parzival-blocker
+/pov:commands:parzival-blocker
 ```
 *Expected:* Parzival asks for blocker details, analyzes the issue, and presents resolution options with tradeoffs and confidence levels.
 
 **Creating a Handoff:**
 ```
-/parzival-closeout
+/pov:commands:parzival-closeout
 ```
 *Expected:* Parzival creates a detailed `SESSION_HANDOFF_*.md` file with work completed, decisions made, next steps, and context for future sessions.
 
@@ -609,66 +610,65 @@ Parzival uses a **five-layer constraint enforcement system** to maintain consist
 
 ```
 bmad-parzival-module/
-├── _bmad/
-│   └── pov/                           # BMAD module definition
-│       ├── config.yaml                 # Module configuration
-│       ├── agents/
-│       │   └── parzival.md            # Main agent definition (with critical constraints)
-│       ├── templates/
-│       │   └── oversight/             # Oversight folder templates
-│       │       ├── SESSION_WORK_INDEX.md
-│       │       ├── tracking/
-│       │       │   ├── task-tracker.md
-│       │       │   └── risk-register.md
-│       │       ├── session-logs/
-│       │       ├── decisions/
-│       │       ├── knowledge/
-│       │       └── standards/
-│       └── manifest.csv               # Module registration
-│
 ├── .claude/
-│   ├── commands/bmad/pov/             # Slash commands
-│   │   ├── commands/                  # 7 action commands
-│   │   │   ├── parzival-start.md
-│   │   │   ├── parzival-status.md
-│   │   │   ├── parzival-closeout.md
-│   │   │   ├── parzival-handoff.md
-│   │   │   ├── parzival-blocker.md
-│   │   │   ├── parzival-decision.md
-│   │   │   └── parzival-verify.md
-│   │   └── agents/                    # 3 agent invocations
-│   │       ├── parzival.md            # Main agent activation
-│   │       ├── code-reviewer.md       # Code review subagent
-│   │       └── verify-implementation.md # Verification subagent
-│   │
-│   └── skills/parzival-oversight/     # Skill definitions
-│       ├── SKILL.md                   # Main skill definition
-│       ├── CONSTRAINTS.md             # Core behavioral rules (390 lines)
-│       ├── PROCEDURES.md              # Step-by-step operational procedures
-│       └── CODEBASE-MODEL.md          # System architecture understanding
+│   └── commands/
+│       └── pov/
+│           ├── commands/                  # 7 action commands
+│           │   ├── parzival-start.md
+│           │   ├── parzival-status.md
+│           │   ├── parzival-closeout.md
+│           │   ├── parzival-handoff.md
+│           │   ├── parzival-blocker.md
+│           │   ├── parzival-decision.md
+│           │   └── parzival-verify.md
+│           └── agents/                    # 2 subagent invocations
+│               ├── parzival.md            # Main agent activation
+│               ├── code-reviewer.md       # Code review subagent
+│               └── verify-implementation.md # Verification subagent
+│
+├── pov/                                   # Module definition
+│   ├── config.yaml                        # Module configuration
+│   ├── agents/
+│   │   ├── parzival.md                    # Main agent definition (with critical constraints)
+│   │   └── parzival/
+│   │       └── CONSTRAINTS.md             # Core behavioral rules (394 lines)
+│   ├── procedures/
+│   │   └── PROCEDURES.md                  # Step-by-step operational procedures (878 lines)
+│   ├── includes/
+│   │   └── ESCALATION-PROTOCOL.md         # Escalation guidelines
+│   └── templates/
+│       └── oversight/                     # Oversight folder templates (37 files)
+│           ├── SESSION_WORK_INDEX.md
+│           ├── tracking/
+│           ├── session-logs/
+│           ├── decisions/
+│           ├── knowledge/
+│           └── standards/
 │
 ├── docs/
-│   └── CONSTRAINT-ENFORCEMENT-SYSTEM.md  # Behavioral design architecture
+│   ├── CONSTRAINT-ENFORCEMENT-SYSTEM.md   # Behavioral design architecture
+│   ├── SHARDING_STRATEGY.md               # Document sharding strategy
+│   └── BMAD-Multi-Agent-Architecture.md   # Future multi-agent research
 │
 ├── scripts/
-│   ├── init-oversight.sh              # New project oversight setup
-│   └── update-templates.sh            # Existing project template sync
+│   ├── init-oversight.sh                  # New project oversight setup
+│   └── update-templates.sh                # Existing project template sync
 │
-├── install.sh                         # Main installer (module code only)
-├── install-windows.bat                # Windows installer
-├── INSTALL-GUIDE.md                   # Complete installation guide
-└── README.md                          # This file (source of truth)
+├── install.sh                             # Main installer (safe, no-clobber)
+├── install-windows.bat                    # Windows installer
+├── INSTALL-GUIDE.md                       # Complete installation guide
+└── README.md                              # This file (source of truth)
 ```
 
 ### Key Files Explained
 
 | File | Purpose | When Loaded |
 |------|---------|-------------|
-| `_bmad/pov/agents/parzival.md` | Agent definition with critical constraints | Agent activation |
-| `.claude/skills/parzival-oversight/CONSTRAINTS.md` | Complete behavioral rules (390 lines) | Session start |
-| `.claude/skills/parzival-oversight/PROCEDURES.md` | Step-by-step procedures | As needed during operations |
-| `.claude/commands/bmad/pov/commands/*.md` | Slash command implementations | When command invoked |
-| `_bmad/pov/config.yaml` | Module configuration | Session start (Step 2 of activation) |
+| `pov/agents/parzival.md` | Agent definition with critical constraints | Agent activation |
+| `pov/agents/parzival/CONSTRAINTS.md` | Complete behavioral rules (394 lines) | Session start (activation step 3) |
+| `pov/procedures/PROCEDURES.md` | Step-by-step procedures (878 lines) | As needed during operations |
+| `.claude/commands/pov/commands/*.md` | Slash command implementations | When command invoked |
+| `pov/config.yaml` | Module configuration | Session start (Step 2 of activation) |
 | `docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md` | Behavioral design documentation | Reference only |
 
 ### Multi-Agent Architecture Research
@@ -730,16 +730,15 @@ your-project/oversight/
 |----------|---------|----------|
 | **[docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md](./docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md)** | Five-layer behavioral design architecture | Module developers |
 | **[docs/SHARDING_STRATEGY.md](./docs/SHARDING_STRATEGY.md)** | Document sharding for long-term projects | Module developers |
-| **[claude-skills/parzival-oversight/CONSTRAINTS.md](./claude-skills/parzival-oversight/CONSTRAINTS.md)** | 5 Behavioral constraints (390 lines) | Parzival itself |
-| **[claude-skills/parzival-oversight/PROCEDURES.md](./claude-skills/parzival-oversight/PROCEDURES.md)** | Step-by-step operational procedures | Parzival itself |
-| **[_bmad/pov/agents/parzival/CONSTRAINTS.md](./_bmad/pov/agents/parzival/CONSTRAINTS.md)** | 7 Operational constraints (C1-C7) | Parzival itself |
-| **[_bmad/pov/agents/parzival.md](./_bmad/pov/agents/parzival.md)** | Agent definition with activation sequence | BMAD system |
+| **[pov/agents/parzival/CONSTRAINTS.md](./pov/agents/parzival/CONSTRAINTS.md)** | Complete behavioral constraints (394 lines) | Parzival itself |
+| **[pov/procedures/PROCEDURES.md](./pov/procedures/PROCEDURES.md)** | Step-by-step operational procedures (878 lines) | Parzival itself |
+| **[pov/agents/parzival.md](./pov/agents/parzival.md)** | Agent definition with activation sequence | BMAD system |
 
 ### Command Documentation
 
 Each command has inline documentation. View with:
 ```bash
-cat .claude/commands/bmad/pov/commands/parzival-start.md
+cat .claude/commands/pov/commands/parzival-start.md
 ```
 
 ---
@@ -813,9 +812,9 @@ tree oversight/
 
 **Constraint Updates:**
 When modifying Parzival's behavior, update ALL layers:
-1. `_bmad/pov/agents/parzival.md` (critical constraints section)
-2. `.claude/skills/parzival-oversight/CONSTRAINTS.md` (detailed rules)
-3. `.claude/skills/parzival-oversight/PROCEDURES.md` (operational steps)
+1. `pov/agents/parzival.md` (critical constraints section)
+2. `pov/agents/parzival/CONSTRAINTS.md` (detailed behavioral rules)
+3. `pov/procedures/PROCEDURES.md` (operational procedures)
 4. `docs/CONSTRAINT-ENFORCEMENT-SYSTEM.md` (architecture doc)
 5. This README.md (if core identity changes)
 

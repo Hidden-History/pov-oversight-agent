@@ -574,9 +574,9 @@ wc -l oversight/**/*.md | sort -n
 
 ## References
 
-- Parzival Procedures: `bmad-parzival-module/_bmad/pov/procedures/PROCEDURES.md`
-- Template Directory: `bmad-parzival-module/_bmad/pov/templates/oversight/`
-- Agent Instructions: `bmad-parzival-module/_bmad/pov/agents/parzival.md`
+- Parzival Procedures: `bmad-parzival-module/pov/procedures/PROCEDURES.md`
+- Template Directory: `bmad-parzival-module/pov/templates/oversight/`
+- Agent Instructions: `bmad-parzival-module/pov/agents/parzival.md`
 
 ---
 

@@ -108,7 +108,7 @@ Phase 4: Parzival Enforces Quality
 
 **Technology**: Claude Agent SDK instance with orchestration system prompt
 
-**Configuration**: `bmad-parzival-module/_bmad/pov/agents/parzival.md`
+**Configuration**: `bmad-parzival-module/pov/agents/parzival.md`
 
 ---
 
@@ -142,7 +142,7 @@ Phase 4: Parzival Enforces Quality
 
 **Technology**: Claude Agent SDK instances with role-specific system prompts
 
-**Configuration**: `bmad-parzival-module/_bmad/pov/agents/*.md`
+**Configuration**: `bmad-parzival-module/pov/agents/*.md`
 
 ---
 

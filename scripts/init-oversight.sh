@@ -1,6 +1,6 @@
 #!/bin/bash
 # Parzival Oversight Folder Initializer
-# Version: 1.0.0
+# Version: 1.1.0
 # For NEW projects only - initializes oversight folder from templates
 
 set -e
@@ -12,7 +12,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo "========================================"
-echo "  PARZIVAL OVERSIGHT INITIALIZER v1.0.0"
+echo "  PARZIVAL OVERSIGHT INITIALIZER v1.1.0"
 echo "  For NEW projects only"
 echo "========================================"
 echo ""
@@ -47,7 +47,7 @@ if [ ! -d "$PROJECT_DIR/_bmad" ]; then
 fi
 
 # Verify Parzival module is installed
-if [ ! -d "$PROJECT_DIR/_bmad/pov" ]; then
+if [ ! -d "$PROJECT_DIR/pov" ]; then
     echo -e "${RED}ERROR: Parzival module not found${NC}"
     echo "Please run install.sh first"
     exit 1
@@ -76,7 +76,7 @@ mkdir -p "$PROJECT_DIR/oversight"
 
 # Copy templates with no-clobber (never overwrites)
 echo "[1/4] Copying template files..."
-TEMPLATE_DIR="$PROJECT_DIR/_bmad/pov/templates/oversight"
+TEMPLATE_DIR="$PROJECT_DIR/pov/templates/oversight"
 NEW_FILES=0
 SKIPPED_FILES=0
 
@@ -114,6 +114,8 @@ mkdir -p "$PROJECT_DIR/oversight/audits"
 mkdir -p "$PROJECT_DIR/oversight/plans"
 mkdir -p "$PROJECT_DIR/oversight/specs"
 mkdir -p "$PROJECT_DIR/oversight/tasks"
+mkdir -p "$PROJECT_DIR/oversight/session-index"
+mkdir -p "$PROJECT_DIR/oversight/session-index/archive"
 echo -e "${GREEN}  Done${NC}"
 
 # Create .gitkeep files for empty directories
@@ -136,15 +138,17 @@ echo "========================================"
 echo ""
 echo "Oversight folder structure:"
 echo "  oversight/"
-echo "    ├── knowledge/          (assumptions, confidence map, best practices)"
-echo "    ├── tracking/           (tasks, risks, blockers, technical debt)"
-echo "    ├── verification/       (checklists for code review, story completion)"
-echo "    ├── learning/           (failure patterns)"
-echo "    ├── research/           (best practices research log)"
-echo "    ├── decisions/          (architectural decisions - empty, ready for use)"
-echo "    ├── session-logs/       (session handoffs - empty, ready for use)"
-echo "    ├── prompts/            (agent prompts - empty, ready for use)"
-echo "    └── standards/          (project standards sharding)"
+echo "    ├── SESSION_WORK_INDEX.md  (quick context, <80 lines)"
+echo "    ├── session-index/         (NEW: full session history)"
+echo "    │   ├── INDEX.md           (navigation)"
+echo "    │   └── archive/           (quarterly archives)"
+echo "    ├── knowledge/             (assumptions, confidence map)"
+echo "    ├── tracking/              (tasks, risks, blockers, debt)"
+echo "    ├── verification/          (checklists)"
+echo "    ├── decisions/             (architectural decisions)"
+echo "    ├── session-logs/          (individual handoffs)"
+echo "    ├── specs/                 (specifications)"
+echo "    └── standards/             (project standards)"
 echo ""
 echo "Next steps:"
 echo "1. Review SESSION_WORK_INDEX.md to understand the oversight system"

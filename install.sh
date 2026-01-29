@@ -48,11 +48,15 @@ if [ ! -d "$PROJECT_DIR" ]; then
     exit 1
 fi
 
-# Verify BMAD is installed
+# Verify BMAD is installed (optional - Parzival can work standalone)
 if [ ! -d "$PROJECT_DIR/_bmad" ]; then
-    echo -e "${RED}ERROR: BMAD not found in $PROJECT_DIR${NC}"
-    echo "Please install BMAD first with: npx bmad-method@alpha install"
-    exit 1
+    echo -e "${YELLOW}WARNING: BMAD not found in $PROJECT_DIR${NC}"
+    echo "Parzival can work standalone or with BMAD Method"
+    read -p "Continue installation anyway? (y/n): " CONTINUE
+    if [ "$CONTINUE" != "y" ] && [ "$CONTINUE" != "Y" ]; then
+        echo "Installation cancelled."
+        exit 0
+    fi
 fi
 
 echo ""
@@ -75,27 +79,29 @@ echo "Installing Parzival module..."
 echo ""
 
 # Step 1: Copy POV module
-echo "[1/6] Copying POV module files..."
-mkdir -p "$PROJECT_DIR/_bmad/pov"
-cp -r "$SCRIPT_DIR/_bmad/pov/"* "$PROJECT_DIR/_bmad/pov/"
-echo -e "${GREEN}  Done${NC}"
+echo "[1/5] Copying POV module files..."
+mkdir -p "$PROJECT_DIR/pov"
+# Preserve user's config.yaml if it exists
+if [ -f "$PROJECT_DIR/pov/config.yaml" ]; then
+    CONFIG_BACKUP=$(cat "$PROJECT_DIR/pov/config.yaml")
+    cp -r "$SCRIPT_DIR/pov/"* "$PROJECT_DIR/pov/"
+    echo "$CONFIG_BACKUP" > "$PROJECT_DIR/pov/config.yaml"
+    echo -e "${GREEN}  Done (preserved existing config.yaml)${NC}"
+else
+    cp -r "$SCRIPT_DIR/pov/"* "$PROJECT_DIR/pov/"
+    echo -e "${GREEN}  Done${NC}"
+fi
 
 # Step 2: Copy slash commands
-echo "[2/6] Copying slash commands..."
-mkdir -p "$PROJECT_DIR/.claude/commands/bmad/pov/commands"
-mkdir -p "$PROJECT_DIR/.claude/commands/bmad/pov/agents"
-cp -r "$SCRIPT_DIR/claude-commands/bmad/pov/commands/"* "$PROJECT_DIR/.claude/commands/bmad/pov/commands/"
-cp -r "$SCRIPT_DIR/claude-commands/bmad/pov/agents/"* "$PROJECT_DIR/.claude/commands/bmad/pov/agents/"
+echo "[2/5] Copying slash commands..."
+mkdir -p "$PROJECT_DIR/.claude/commands/pov/commands"
+mkdir -p "$PROJECT_DIR/.claude/commands/pov/agents"
+cp -rn "$SCRIPT_DIR/.claude/commands/pov/commands/"* "$PROJECT_DIR/.claude/commands/pov/commands/"
+cp -rn "$SCRIPT_DIR/.claude/commands/pov/agents/"* "$PROJECT_DIR/.claude/commands/pov/agents/"
 echo -e "${GREEN}  Done${NC}"
 
-# Step 3: Copy skills
-echo "[3/6] Copying skills..."
-mkdir -p "$PROJECT_DIR/.claude/skills/parzival-oversight"
-cp -r "$SCRIPT_DIR/claude-skills/parzival-oversight/"* "$PROJECT_DIR/.claude/skills/parzival-oversight/"
-echo -e "${GREEN}  Done${NC}"
-
-# Step 4: Update manifest.yaml
-echo "[4/6] Updating BMAD manifest..."
+# Step 3: Update manifest.yaml
+echo "[3/5] Updating BMAD manifest..."
 MANIFEST_FILE="$PROJECT_DIR/_bmad/_config/manifest.yaml"
 if [ -f "$MANIFEST_FILE" ]; then
     # Add pov to manifest if not already present
@@ -116,12 +122,12 @@ else
     echo -e "${RED}  WARNING: manifest.yaml not found${NC}"
 fi
 
-# Step 5: Update agent-manifest.csv
-echo "[5/6] Updating agent manifest..."
+# Step 4: Update agent-manifest.csv
+echo "[4/5] Updating agent manifest..."
 AGENT_MANIFEST="$PROJECT_DIR/_bmad/_config/agent-manifest.csv"
 if [ -f "$AGENT_MANIFEST" ]; then
     if ! grep -q "parzival" "$AGENT_MANIFEST"; then
-        echo '"parzival","Parzival","Technical PM & Quality Gatekeeper","🎯","Technical Project Manager + Quality Gatekeeper","Parzival is the radar, map reader, and navigator. Deep project understanding enables good recommendations - not task execution. Maintains oversight documentation, tracks risks and blockers, provides well-crafted prompts for agents, and validates completed work through explicit checklists.","Advisory and supportive. Uses confidence levels (Verified/Informed/Inferred/Uncertain/Unknown) with every recommendation. Asks clarifying questions rather than assuming. Surfaces risks and scope changes proactively.","- Parzival recommends. The user decides. - Ask when uncertain, never fabricate. - Surface scope changes when detected. - Write for Future Parzival who knows nothing about this session. - Verification is concrete, not vibes-based.","pov","_bmad/pov/agents/parzival.md"' >> "$AGENT_MANIFEST"
+        echo '"parzival","Parzival","Technical PM & Quality Gatekeeper","🎯","Technical Project Manager + Quality Gatekeeper","Parzival is the radar, map reader, and navigator. Deep project understanding enables good recommendations - not task execution. Maintains oversight documentation, tracks risks and blockers, provides well-crafted prompts for agents, and validates completed work through explicit checklists.","Advisory and supportive. Uses confidence levels (Verified/Informed/Inferred/Uncertain/Unknown) with every recommendation. Asks clarifying questions rather than assuming. Surfaces risks and scope changes proactively.","- Parzival recommends. The user decides. - Ask when uncertain, never fabricate. - Surface scope changes when detected. - Write for Future Parzival who knows nothing about this session. - Verification is concrete, not vibes-based.","pov","pov/agents/parzival.md"' >> "$AGENT_MANIFEST"
         echo -e "${GREEN}  Added parzival to agent manifest${NC}"
     else
         echo -e "${YELLOW}  parzival already in agent manifest${NC}"
@@ -130,11 +136,15 @@ else
     echo -e "${RED}  WARNING: agent-manifest.csv not found${NC}"
 fi
 
-# Step 6: Copy customization template
-echo "[6/6] Copying customization template..."
+# Step 5: Copy customization template
+echo "[5/5] Copying customization template..."
 mkdir -p "$PROJECT_DIR/_bmad/_config/agents"
-cp "$SCRIPT_DIR/pov-parzival.customize.yaml" "$PROJECT_DIR/_bmad/_config/agents/"
-echo -e "${GREEN}  Done${NC}"
+if [ -f "$PROJECT_DIR/_bmad/_config/agents/pov-parzival.customize.yaml" ]; then
+    echo -e "${YELLOW}  Skipped (file already exists)${NC}"
+else
+    cp "$SCRIPT_DIR/pov-parzival.customize.yaml" "$PROJECT_DIR/_bmad/_config/agents/"
+    echo -e "${GREEN}  Done${NC}"
+fi
 
 echo ""
 echo "========================================"
@@ -150,12 +160,12 @@ echo "2. Update templates (EXISTING PROJECTS):"
 echo "   ./scripts/update-templates.sh $PROJECT_DIR"
 echo ""
 echo "3. Configure Parzival (optional):"
-echo "   Edit: $PROJECT_DIR/_bmad/pov/config.yaml"
+echo "   Edit: $PROJECT_DIR/pov/config.yaml"
 echo ""
 echo "4. Start using Parzival:"
 echo "   cd $PROJECT_DIR"
 echo "   claude"
-echo "   /parzival-start"
+echo "   /pov:commands:parzival-start"
 echo ""
 echo "For help, see INSTALL-GUIDE.md"
 echo ""

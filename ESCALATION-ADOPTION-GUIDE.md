@@ -239,9 +239,9 @@ Adds Parzival Escalation Protocol to [agent-name] agent
 The Parzival Escalation Protocol is part of the Parzival Oversight Module (POV).
 
 For issues or improvements, update:
-- `_bmad/pov/includes/ESCALATION-PROTOCOL.md` - The shared protocol
+- `pov/includes/ESCALATION-PROTOCOL.md` - The shared protocol
 - `ESCALATION-ADOPTION-GUIDE.md` - This guide
-- `_bmad/pov/templates/oversight/PARZIVAL_AGENT_IMPROVEMENTS.md` - Track improvements
+- `pov/templates/oversight/PARZIVAL_AGENT_IMPROVEMENTS.md` - Track improvements
 
 ---
 

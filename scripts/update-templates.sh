@@ -42,7 +42,7 @@ if [ ! -d "$PROJECT_DIR" ]; then
 fi
 
 # Verify Parzival module is installed
-if [ ! -d "$PROJECT_DIR/_bmad/pov" ]; then
+if [ ! -d "$PROJECT_DIR/pov" ]; then
     echo -e "${RED}ERROR: Parzival module not found${NC}"
     echo "Please run install.sh first"
     exit 1
@@ -55,7 +55,7 @@ if [ ! -d "$PROJECT_DIR/oversight" ]; then
     exit 1
 fi
 
-TEMPLATE_DIR="$PROJECT_DIR/_bmad/pov/templates/oversight"
+TEMPLATE_DIR="$PROJECT_DIR/pov/templates/oversight"
 OVERSIGHT_DIR="$PROJECT_DIR/oversight"
 
 echo "Scanning for template updates..."

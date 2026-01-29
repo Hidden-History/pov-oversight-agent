@@ -96,7 +96,7 @@ This document provides a complete reference of all BMAD agents and workflows.
 
 ## POV Agents (Parzival Oversight)
 
-**Location**: `bmad-parzival-module/claude-commands/bmad/pov/agents/`
+**Location**: `bmad-parzival-module/claude-commands/pov/agents/`
 
 | Agent | File | Purpose |
 |-------|------|---------|
@@ -107,7 +107,7 @@ This document provides a complete reference of all BMAD agents and workflows.
 
 ### POV Commands
 
-**Location**: `bmad-parzival-module/claude-commands/bmad/pov/commands/`
+**Location**: `bmad-parzival-module/claude-commands/pov/commands/`
 
 | Command | File | Purpose |
 |---------|------|---------|
@@ -183,11 +183,11 @@ This document provides a complete reference of all BMAD agents and workflows.
 ```
 # Via slash command (Claude Code)
 /bmad:bmm:agents:dev
-/bmad:pov:agents:code-reviewer
+/pov:agents:code-reviewer
 
 # Via workflow
 /bmad:bmm:workflows:dev-story
-/bmad:pov:commands:parzival-start
+/pov:commands:parzival-start
 ```
 
 ---

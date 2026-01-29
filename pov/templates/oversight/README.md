@@ -33,13 +33,13 @@ oversight/
 ## How to Use
 
 ### Starting a Session
-Run `/bmad:pov:commands:parzival-start` to load context and get status.
+Run `/pov:commands:parzival-start` to load context and get status.
 
 ### Ending a Session
-Run `/bmad:pov:commands:parzival-closeout` to create a handoff document.
+Run `/pov:commands:parzival-closeout` to create a handoff document.
 
 ### Quick Status
-Run `/bmad:pov:commands:parzival-status` for a quick status check.
+Run `/pov:commands:parzival-status` for a quick status check.
 
 ## Key Principles
 

@@ -449,8 +449,8 @@ See these example constraint files:
 
 ## Related Documentation
 
-- Parzival Agent: `bmad-parzival-module/_bmad/pov/agents/parzival.md`
-- Procedures: `bmad-parzival-module/_bmad/pov/procedures/PROCEDURES.md`
+- Parzival Agent: `bmad-parzival-module/pov/agents/parzival.md`
+- Procedures: `bmad-parzival-module/pov/procedures/PROCEDURES.md`
 - Bug Template: `oversight/bugs/BUG_TEMPLATE.md`
 - Decision Template: `oversight/decisions/DECISION_TEMPLATE.md`
 
