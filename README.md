@@ -8,7 +8,7 @@
 
 [![BMAD Method](https://img.shields.io/badge/BMAD-Module-blue)](https://github.com/bmad-code-org/BMAD-METHOD)
 [![AI Memory](https://img.shields.io/badge/AI%20Memory-Ecosystem-purple)](https://github.com/Hidden-History/ai-memory)
-[![Version](https://img.shields.io/badge/version-1.1.0-green)](https://github.com/Hidden-History/pov-oversight-agent)
+[![Version](https://img.shields.io/badge/version-1.2.0-green)](https://github.com/Hidden-History/pov-oversight-agent)
 [![License](https://img.shields.io/badge/license-MIT-yellow)](LICENSE)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-brightgreen)](https://claude.ai/code)
 
@@ -439,23 +439,28 @@ Parzival uses a **three-script architecture** designed for **data safety** and *
 - **Claude Code** installed: `npm install -g @anthropic-ai/claude-code`
 - **Bash** (Mac/Linux) or **Command Prompt** (Windows)
 
-### Installation (3 Steps)
+### Installation (4 Steps)
 
-#### 1. Install Module
+#### 1. Clone the Repository
 ```bash
-cd /path/to/bmad-parzival-module
+git clone https://github.com/Hidden-History/pov-oversight-agent.git
+cd pov-oversight-agent
+```
+
+#### 2. Install Module
+```bash
 chmod +x install.sh
 ./install.sh /path/to/your-project
 ```
 
-#### 2. Initialize Oversight (NEW Projects Only)
+#### 3. Initialize Oversight (NEW Projects Only)
 ```bash
 ./scripts/init-oversight.sh /path/to/your-project
 ```
 
 **Skip this step if you already have an oversight/ folder!**
 
-#### 3. Configure (Optional)
+#### 4. Configure (Optional)
 Edit `your-project/pov/config.yaml`:
 ```yaml
 user_name: "YourName"
@@ -746,7 +751,7 @@ cat .claude/commands/pov/commands/parzival-start.md
 ## 📦 Version & Compatibility
 
 ### Current Version
-- **Module Version**: 1.1.0
+- **Module Version**: 1.2.0
 - **Release Date**: 2026-01-18
 
 ### Compatibility

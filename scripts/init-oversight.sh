@@ -1,6 +1,6 @@
 #!/bin/bash
 # Parzival Oversight Folder Initializer
-# Version: 1.1.0
+# Version: 1.2.0
 # For NEW projects only - initializes oversight folder from templates
 
 set -e
@@ -12,7 +12,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 echo "========================================"
-echo "  PARZIVAL OVERSIGHT INITIALIZER v1.1.0"
+echo "  PARZIVAL OVERSIGHT INITIALIZER v1.2.0"
 echo "  For NEW projects only"
 echo "========================================"
 echo ""

@@ -1,9 +1,9 @@
 @echo off
 setlocal enabledelayedexpansion
-REM Version: 1.1.0
+REM Version: 1.2.0
 
 echo ========================================
-echo   PARZIVAL MODULE INSTALLER v1.1.0
+echo   PARZIVAL MODULE INSTALLER v1.2.0
 echo   For BMAD Method (Windows)
 echo ========================================
 echo.

@@ -5,6 +5,26 @@ All notable changes to the Parzival Oversight Agent will be documented in this f
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-01-29
+
+### Added
+
+- **Git clone command** in Quick Start sections (README.md, INSTALL-GUIDE.md)
+- **Clear installation flow** - Step-by-step clone → install → initialize
+
+### Changed
+
+- **Installer reduced to 5 steps** - Removed skills copy step (skills not part of Parzival module)
+- **Project structure updated** - Removed `.claude/skills/` references (Parzival uses agents only)
+- **Command paths updated** - All examples now use `/pov:commands:parzival-*` format
+- **"What Gets Updated" table** - Removed skills row, corrected paths
+
+### Fixed
+
+- INSTALL-GUIDE.md expected output showed 6 steps (now correctly shows 5)
+- Project structure diagram showed best-practices-researcher (moved to AI-Memory)
+- Quick Start jumped straight to `./install.sh` without explaining how to get the module
+
 ## [1.1.0] - 2026-01-27
 
 ### Added
@@ -117,6 +137,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Highlights |
 |---------|------|------------|
+| 1.2.0 | 2026-01-29 | Documentation fixes, git clone instructions, installer cleanup |
 | 1.1.0 | 2026-01-27 | Public release, C7 observability, task tracking, ecosystem docs |
 | 1.0.0 | 2026-01-18 | Initial release with 7 commands, 2 subagents, 13 templates |
 

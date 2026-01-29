@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://github.com/Hidden-History/pov-oversight-agent)
+[![Version](https://img.shields.io/badge/version-1.2.0-green.svg)](https://github.com/Hidden-History/pov-oversight-agent)
 [![BMAD Compatible](https://img.shields.io/badge/BMAD-6.0.0--alpha.22+-green.svg)](https://bmad-method.org)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -108,23 +108,27 @@ Parzival operates under **five non-negotiable rules** that prevent behavioral dr
 
 ## ⚡ Quick Start
 
-**Already have BMAD installed?** Three commands to get started:
+**Already have BMAD installed?** Four commands to get started:
 
 ```bash
-# 1. Install Parzival module
+# 1. Clone the Parzival module
+git clone https://github.com/Hidden-History/pov-oversight-agent.git
+cd pov-oversight-agent
+
+# 2. Install Parzival module
 ./install.sh /path/to/your/project
 
-# 2. Initialize oversight folder (NEW PROJECTS ONLY)
+# 3. Initialize oversight folder (NEW PROJECTS ONLY)
 ./scripts/init-oversight.sh /path/to/your/project
 
-# 3. Start using Parzival
+# 4. Start using Parzival
 cd /path/to/your/project
 claude
 ```
 
 Then in Claude Code:
 ```
-/parzival-start
+/pov:commands:parzival-start
 ```
 
 ---
@@ -241,11 +245,12 @@ npx bmad-method@alpha install
 ```
 </details>
 
-#### Step 2: Install Parzival Module
+#### Step 2: Clone and Install Parzival Module
 
 ```bash
-# Navigate to the Parzival module folder
-cd /path/to/bmad-parzival-module
+# Clone the Parzival module repository
+git clone https://github.com/Hidden-History/pov-oversight-agent.git
+cd pov-oversight-agent
 
 # Run the installer
 ./install.sh /path/to/your/project
@@ -253,23 +258,21 @@ cd /path/to/bmad-parzival-module
 
 **What this does:**
 - ✅ Copies module files to `pov/`
-- ✅ Installs slash commands to `.claude/commands/`
-- ✅ Installs skills to `.claude/skills/`
+- ✅ Installs slash commands to `.claude/commands/pov/`
 - ✅ Updates BMAD manifests
 - ✅ Copies customization template
 
 **Expected Output:**
 ```
 ========================================
-  PARZIVAL MODULE INSTALLER v1.1.0
+  PARZIVAL MODULE INSTALLER v1.2.0
 ========================================
 
-[1/6] Copying POV module files...       ✓ Done
-[2/6] Copying slash commands...         ✓ Done
-[3/6] Copying skills...                 ✓ Done
-[4/6] Updating BMAD manifest...         ✓ Added 'pov' to manifest
-[5/6] Updating agent manifest...        ✓ Added parzival to agent manifest
-[6/6] Copying customization template... ✓ Done
+[1/5] Copying POV module files...       ✓ Done
+[2/5] Copying slash commands...         ✓ Done
+[3/5] Updating BMAD manifest...         ✓ Added 'pov' to manifest
+[4/5] Updating agent manifest...        ✓ Added parzival to agent manifest
+[5/5] Copying customization template... ✓ Done
 
 ========================================
   INSTALLATION COMPLETE!
@@ -413,9 +416,8 @@ Choice [d/k/u/s]: u
 | Component | Update Method | Your Data Safe? |
 |-----------|---------------|-----------------|
 | Module code (`pov/`) | Overwritten | N/A (no user data) |
-| Commands (`.claude/commands/`) | Overwritten | N/A (no user data) |
-| Skills (`.claude/skills/`) | Overwritten | N/A (no user data) |
-| Config (`pov/config.yaml`) | Overwritten | ⚠️ Backup first |
+| Commands (`.claude/commands/pov/`) | Overwritten | N/A (no user data) |
+| Config (`pov/config.yaml`) | Preserved if exists | ✅ Safe |
 | Oversight data (`oversight/`) | **NEVER touched by install.sh** | ✅ Always safe |
 | Templates (via `update-templates.sh`) | Interactive - you choose | ✅ You control |
 
@@ -605,17 +607,19 @@ my-project/
 │   │       │   ├── parzival-blocker.md
 │   │       │   ├── parzival-decision.md
 │   │       │   └── parzival-verify.md
-│   │       └── agents/             # 4 agent invocations
+│   │       └── agents/             # 3 agent invocations
 │   │           ├── parzival.md
 │   │           ├── code-reviewer.md
-│   │           ├── verify-implementation.md
-│   │           └── best-practices-researcher.md
-│   └── skills/
-│       └── parzival-oversight/     # Skill definitions
-│           ├── SKILL.md
-│           ├── CONSTRAINTS.md
-│           ├── PROCEDURES.md
-│           └── CODEBASE-MODEL.md
+│   │           └── verify-implementation.md
+│
+├── pov/                            # 🎯 Parzival Module (standalone location)
+│   ├── config.yaml                 # Parzival configuration
+│   ├── agents/
+│   │   ├── parzival.md             # Main agent definition
+│   │   └── parzival/
+│   │       └── CONSTRAINTS.md      # Behavioral constraints
+│   └── procedures/
+│       └── PROCEDURES.md           # Operational procedures
 │
 └── oversight/                      # 📊 Your Session Data (NEVER overwritten)
     ├── README.md                   # Oversight system guide
@@ -676,9 +680,8 @@ my-project/
 
 | Directory | Purpose | Updated By |
 |-----------|---------|-----------|
-| `pov/` | Module code | `install.sh` |
-| `.claude/commands/` | Slash commands | `install.sh` |
-| `.claude/skills/` | Skills | `install.sh` |
+| `pov/` | Module code & config | `install.sh` |
+| `.claude/commands/pov/` | Slash commands & agents | `install.sh` |
 | `oversight/` | **Your session data** | **You + Parzival** |
 | `oversight/session-logs/` | Session handoffs | Parzival (auto) |
 | `oversight/tracking/` | Project tracking | You + Parzival |

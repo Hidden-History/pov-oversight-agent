@@ -1,11 +1,11 @@
 #!/bin/bash
 # Parzival Module Installer for Mac/Linux
-# Version: 1.1.0
+# Version: 1.2.0
 
 set -e
 
 echo "========================================"
-echo "  PARZIVAL MODULE INSTALLER v1.1.0"
+echo "  PARZIVAL MODULE INSTALLER v1.2.0"
 echo "  For BMAD Method"
 echo "========================================"
 echo ""

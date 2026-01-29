@@ -24,7 +24,7 @@ This document specifies enhancements to Parzival's three subagents based on live
 ## Part 1: Code Reviewer Enhancements
 
 ### File to Modify
-`claude-commands/bmad/pov/agents/code-reviewer.md`
+`claude-commands/pov/agents/code-reviewer.md`
 
 ### Current Tools
 ```yaml
@@ -155,9 +155,9 @@ Add to the output format (after "## Positive Observations"):
 ## Part 2: Best Practices Researcher Enhancements (MAJOR)
 
 ### Files to Modify
-1. `claude-commands/bmad/pov/agents/best-practices-researcher.md` - Agent definition
-2. `_bmad/pov/config.yaml` - Add configuration settings
-3. `_bmad/pov/templates/oversight/knowledge/` - Add new directory and templates
+1. `claude-commands/pov/agents/best-practices-researcher.md` - Agent definition
+2. `pov/config.yaml` - Add configuration settings
+3. `pov/templates/oversight/knowledge/` - Add new directory and templates
 
 ### New Section to Add (After line 9, REPLACE entire Research Process section)
 
@@ -433,7 +433,7 @@ ELSE:
 
 ### New Template File to Create
 
-**File**: `_bmad/pov/templates/oversight/knowledge/best-practices/index.md`
+**File**: `pov/templates/oversight/knowledge/best-practices/index.md`
 
 ```markdown
 # Best Practices Knowledge Base
@@ -527,7 +527,7 @@ ELSE:
 
 ### Config Updates
 
-**File**: `_bmad/pov/config.yaml`
+**File**: `pov/config.yaml`
 
 Add after line 50:
 
@@ -562,7 +562,7 @@ Add after line 50:
 ## Part 3: Verify Implementation Enhancements
 
 ### File to Modify
-`claude-commands/bmad/pov/agents/verify-implementation.md`
+`claude-commands/pov/agents/verify-implementation.md`
 
 ### New Section to Add (After "## Verification Process", before "## Output Format")
 
@@ -716,7 +716,7 @@ Add to output format:
 ### Create Directory Structure
 
 ```
-_bmad/pov/templates/oversight/knowledge/
+pov/templates/oversight/knowledge/
 ├── confidence-map.md          # (existing)
 ├── assumption-registry.md     # (existing)
 └── best-practices/            # NEW
@@ -726,7 +726,7 @@ _bmad/pov/templates/oversight/knowledge/
 
 ### Template File for New Findings
 
-**File**: `_bmad/pov/templates/oversight/knowledge/best-practices/_TEMPLATE.md`
+**File**: `pov/templates/oversight/knowledge/best-practices/_TEMPLATE.md`
 
 ```markdown
 # Best Practice: [TOPIC TITLE]
