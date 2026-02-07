@@ -1,0 +1,81 @@
+# ==============================================================================
+# pov-oversight-agent .gitignore
+# Repo: github.com/Hidden-History/pov-oversight-agent
+# ==============================================================================
+
+# --- Cross-Contamination Guards (CRITICAL) ---
+# These patterns prevent ai-memory repo files from accidentally appearing here.
+# If git shows these as untracked, something is wrong with your working directory.
+src/
+tests/
+docker/
+monitoring/
+examples/
+backups/
+templates/
+pyproject.toml
+requirements.txt
+requirements-dev.txt
+package.json
+package-lock.json
+uv.lock
+pytest.ini
+pytest-e2e.ini
+playwright.config.ts
+
+# Block Python files by default (canary for cross-contamination)
+# When orchestration scripts are added, create explicit exceptions:
+#   !scripts/orchestration/*.py
+#   !orchestration/**/*.py
+*.py
+
+# --- Workspace-only directories ---
+# These exist at the workspace level and must never enter this repo
+oversight/
+_bmad/
+_bmad-output/
+
+# --- OS generated files ---
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Editor / IDE files ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# --- Environment and secrets ---
+.env
+.env.local
+.env.*.local
+
+# --- Logs and temp ---
+*.log
+logs/
+*.tmp
+*.temp
+.cache/
+
+# --- Python (future-proofing for orchestration scripts) ---
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# --- Node (if ever needed) ---
+node_modules/
+
+# --- Claude Code local settings ---
+.claude/settings.json
+.claude/settings.local.json

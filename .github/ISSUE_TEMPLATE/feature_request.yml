@@ -1,0 +1,86 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for Parzival Oversight Agent
+title: "[Feature]: "
+labels: ["type: feature", "status: needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! We value community input and want to understand your use case.
+
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      description: What type of feature is this?
+      options:
+        - New Capability
+        - Enhancement to Existing Feature
+        - New Template or Procedure
+        - New Agent Command
+        - Integration with Another Tool
+        - Developer Experience
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: What problem does this feature solve? Describe the use case.
+      placeholder: |
+        I'm frustrated when... OR I need to...
+
+        Example: "When running multi-session projects, I find it difficult to track which decisions were made in which session. I need a way to cross-reference decisions with session logs."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this feature to work?
+      placeholder: |
+        I would like...
+
+        Example: "Add a `/pov:commands:parzival-decisions` command that lists all decisions
+        from the decisions log with links to the session where they were made."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other solutions have you considered?
+      placeholder: |
+        Example: "I considered manually grepping the oversight folder, but that doesn't provide structured output or confidence levels."
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or mockups about the feature request
+      placeholder: "This would be especially useful for teams using Parzival across multiple repositories..."
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Would you be willing to contribute to this feature?
+      options:
+        - label: I would be willing to submit a PR for this feature
+        - label: I can help with design/specification
+        - label: I can help with testing
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have searched existing issues and feature requests to avoid duplicates
+          required: true
+        - label: This feature aligns with the project's goals (oversight and quality gating for Claude Code)
+          required: true

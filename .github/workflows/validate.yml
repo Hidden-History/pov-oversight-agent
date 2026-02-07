@@ -1,0 +1,167 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  yaml-lint:
+    name: YAML Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install yamllint
+        run: pip install yamllint
+      - name: Lint YAML files
+        run: |
+          yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}}}" \
+            $(find . -name '*.yaml' -o -name '*.yml' | grep -v '.github/ISSUE_TEMPLATE' | grep -v 'node_modules')
+
+  markdown-lint:
+    name: Markdown Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install markdownlint-cli2
+        run: npm install -g markdownlint-cli2
+      - name: Lint Markdown files
+        run: |
+          markdownlint-cli2 "**/*.md" "#node_modules" || true
+        # Using || true initially - tighten once existing lint issues are fixed
+
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        run: |
+          find . -name '*.sh' -not -path './node_modules/*' -print0 | \
+            xargs -0 -r shellcheck --severity=warning || true
+        # Using || true initially - tighten once existing issues are fixed
+
+  repo-integrity:
+    name: Repo Integrity
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for ai-memory contamination
+        run: |
+          FOUND=0
+          for dir in src tests docker monitoring examples backups; do
+            if [ -d "$dir" ]; then
+              echo "::error::Found '$dir/' directory (belongs to ai-memory repo)"
+              FOUND=1
+            fi
+          done
+          for file in pyproject.toml requirements.txt requirements-dev.txt \
+                      package.json package-lock.json uv.lock pytest.ini \
+                      playwright.config.ts; do
+            if [ -f "$file" ]; then
+              echo "::error::Found '$file' (belongs to ai-memory repo)"
+              FOUND=1
+            fi
+          done
+          if [ $FOUND -ne 0 ]; then exit 1; fi
+          echo "No cross-contamination detected."
+
+      - name: Check for workspace-only files
+        run: |
+          FOUND=0
+          for dir in oversight _bmad _bmad-output; do
+            if [ -d "$dir" ]; then
+              echo "::error::Found '$dir/' directory (workspace-only, should not be committed)"
+              FOUND=1
+            fi
+          done
+          if [ $FOUND -ne 0 ]; then exit 1; fi
+          echo "No workspace contamination detected."
+
+      - name: Check for absolute workspace paths
+        run: |
+          if grep -rn --include='*.md' --include='*.yaml' --include='*.yml' \
+                      --include='*.sh' --include='*.bat' \
+                      -E '/mnt/e/projects/|/dev-multi-agent/' . 2>/dev/null | \
+                      grep -v 'scripts/git-hooks/pre-commit'; then
+            echo "::error::Absolute workspace paths found in committed files"
+            exit 1
+          fi
+          echo "No absolute workspace paths found."
+
+      - name: Validate expected structure
+        run: |
+          MISSING=0
+          for item in pov/ pov/config.yaml pov/agents/parzival.md scripts/ README.md; do
+            if [ ! -e "$item" ]; then
+              echo "::error::Expected '$item' not found"
+              MISSING=1
+            fi
+          done
+          if [ $MISSING -ne 0 ]; then exit 1; fi
+          echo "Structure validation passed."
+
+  template-validation:
+    name: Template Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify template files exist
+        run: |
+          MISSING=0
+          TEMPLATES=(
+            "pov/templates/oversight/README.md"
+            "pov/templates/oversight/SESSION_WORK_INDEX.md"
+            "pov/templates/oversight/tracking/task-tracker.md"
+            "pov/templates/oversight/tracking/blockers-log.md"
+            "pov/templates/oversight/tracking/risk-register.md"
+            "pov/templates/oversight/session-logs/SESSION_SNAPSHOT_TEMPLATE.md"
+            "pov/templates/oversight/decisions/DECISION_TEMPLATE.md"
+            "pov/templates/oversight/knowledge/best-practices/_TEMPLATE.md"
+            "pov/templates/oversight/verification/checklists/code-review.md"
+          )
+          for tmpl in "${TEMPLATES[@]}"; do
+            if [ ! -f "$tmpl" ]; then
+              echo "::error::Missing template: $tmpl"
+              MISSING=$((MISSING + 1))
+            fi
+          done
+          if [ $MISSING -gt 0 ]; then
+            echo "::error::$MISSING template(s) missing"
+            exit 1
+          fi
+          echo "All ${#TEMPLATES[@]} templates verified."
+
+  ci-success:
+    name: CI Success
+    needs: [yaml-lint, markdown-lint, shellcheck, repo-integrity, template-validation]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check all jobs
+        run: |
+          if [ "${{ needs.yaml-lint.result }}" = "failure" ] || \
+             [ "${{ needs.repo-integrity.result }}" = "failure" ] || \
+             [ "${{ needs.template-validation.result }}" = "failure" ]; then
+            echo "Required jobs failed"
+            exit 1
+          fi
+          echo "All required checks passed!"

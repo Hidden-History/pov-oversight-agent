@@ -1,0 +1,47 @@
+# Labeler configuration for automatic component labeling
+# Based on file paths changed in PRs
+
+'component: agents':
+  - changed-files:
+    - any-glob-to-any-file: 'pov/agents/**/*'
+
+'component: commands':
+  - changed-files:
+    - any-glob-to-any-file: '.claude/commands/**/*'
+
+'component: constraints':
+  - changed-files:
+    - any-glob-to-any-file: 'pov/agents/parzival/CONSTRAINTS.md'
+
+'component: templates':
+  - changed-files:
+    - any-glob-to-any-file: 'pov/templates/**/*'
+
+'component: procedures':
+  - changed-files:
+    - any-glob-to-any-file: 'pov/procedures/**/*'
+
+'component: installer':
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'install.sh'
+      - 'install-windows.bat'
+      - 'scripts/init-oversight.sh'
+      - 'scripts/update-templates.sh'
+
+'component: documentation':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '*.md'
+      - 'docs/**/*'
+      - '.github/**/*.md'
+
+'component: ci':
+  - changed-files:
+    - any-glob-to-any-file: '.github/workflows/**/*'
+
+'type: docs':
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.md'
+      - 'docs/**/*'

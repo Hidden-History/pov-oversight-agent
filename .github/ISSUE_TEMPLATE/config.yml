@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/Hidden-History/pov-oversight-agent/discussions
+    about: Ask questions, share ideas, and connect with the community
+  - name: Documentation
+    url: https://github.com/Hidden-History/pov-oversight-agent/blob/main/README.md
+    about: Read the official documentation and installation guide
+  - name: WB Solutions Support
+    url: https://wbsolutions.ca/support
+    about: Professional support and consulting services

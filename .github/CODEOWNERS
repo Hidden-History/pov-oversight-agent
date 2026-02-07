@@ -1,0 +1,18 @@
+# Code Owners for Parzival Oversight Agent
+* @Hidden-History
+
+# Security-sensitive
+/.github/workflows/ @Hidden-History
+.env* @Hidden-History
+
+# Core agent configuration
+/pov/agents/ @Hidden-History
+/pov/config.yaml @Hidden-History
+
+# Installation scripts
+/scripts/ @Hidden-History
+install.sh @Hidden-History
+install-windows.bat @Hidden-History
+
+# Claude Code integration
+/.claude/commands/ @Hidden-History
